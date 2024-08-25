@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Words {
-    private File file = new File("src/HangmanGameOOP/words.txt");
+    private File file = new File("words.txt");
     List<String> wordList = new ArrayList<>(20000);
 
     public Words() throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(file.getAbsolutePath());
         String word;
 
         while (scanner.hasNext()) {
