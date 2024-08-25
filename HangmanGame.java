@@ -7,7 +7,7 @@ public class HangmanGame {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         Words words = new Words();
-        Set<String> wrongLetters = new TreeSet<>();
+        Set<String> usedLetters = new TreeSet<>();
 
         while (true) {
             System.out.println("Выберите действие: Новая игра (Н) или Выход (любая клавиша)");
@@ -40,6 +40,9 @@ public class HangmanGame {
                 }
 
                 if (word.indexOf(letter) != -1) {
+                    usedLetters.add(letter);
+                    System.out.println("Использованные буквы: " + usedLetters);
+                    System.out.println("Количество ошибок: " + counter);
                     while (word.indexOf(letter) != -1) {
                         maskedWord.replace(word.indexOf(letter), word.indexOf(letter) + 1, letter);
                         word.replace(word.indexOf(letter), word.indexOf(letter) + 1, "*");
@@ -48,23 +51,23 @@ public class HangmanGame {
                     if (maskedWord.indexOf("*") == -1) {
                         System.out.println("Поздравляю, вы отгадали слово " + "\"" + maskedWord + "\"!");
                         System.out.println("Всего допущено ошибок: " + counter + "\n");
-                        wrongLetters.clear();
+                        usedLetters.clear();
                         break;
                     }
                 } else {
-                    if (wrongLetters.add(letter)) {
+                    if (usedLetters.add(letter)) {
                         counter++;
                         System.out.println("Не угадал, количество ошибок: " + counter);
-                        System.out.println("Использованные буквы: " + wrongLetters);
+                        System.out.println("Использованные буквы: " + usedLetters);
                     } else {
                         System.out.println("Такая буква уже была");
-                        System.out.println("Использованные буквы: " + wrongLetters);
+                        System.out.println("Использованные буквы: " + usedLetters);
                     }
 
                     if (counter == 6) {
                         Gallows.showGallows(counter);
                         System.out.println("Ты проиграл, загаданное слово: " + finalWord);
-                        wrongLetters.clear();
+                        usedLetters.clear();
                         break;
                     }
                 }
