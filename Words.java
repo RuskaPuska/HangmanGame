@@ -7,15 +7,23 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Words {
-    private File file = new File("/Users/ruslan/Desktop/JavaProjects/JavaRoadmapProjects/src/words.txt");
+    private File file = new File("src/HangmanGameOOP/words.txt");
     List<String> wordList = new ArrayList<>(20000);
 
     public Words() throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
+        String word;
 
         while (scanner.hasNext()) {
-            if (scanner.nextLine().length() > 3)
-                wordList.add(scanner.nextLine().toLowerCase());
+            word = scanner.nextLine().toLowerCase();
+            if (word.matches("[а-яёА-ЯЁ]{4,}")) {
+                wordList.add(word);
+            }
         }
+        scanner.close();
+    }
+
+    public String toString() {
+        return wordList.toString();
     }
 }
